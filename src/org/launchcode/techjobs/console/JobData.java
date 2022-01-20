@@ -7,14 +7,17 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by LaunchCode
  */
 public class JobData {
+
 
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean isDataLoaded = false;
@@ -124,5 +127,22 @@ public class JobData {
             e.printStackTrace();
         }
     }
+    public static void findByValue(String searchTerm) {
+        boolean foundResult = false;
+        loadData();
+        for (HashMap<String, String> row : allJobs) {
+            for(String column : row.keySet()){
+                String jobValue= row.get(column);
+                if(jobValue.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    System.out.println(row);
+                    foundResult = true;
+                    break;
+                }
+            }
 
+        }
+        if (!foundResult) {
+            System.out.println("Sorry, no jobs found");
+        }
+    }
 }

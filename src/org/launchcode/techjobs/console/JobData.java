@@ -127,22 +127,21 @@ public class JobData {
             e.printStackTrace();
         }
     }
-    public static void findByValue(String searchTerm) {
+    public static ArrayList<HashMap<String, String>> findByValue(String searchTerm) {
         boolean foundResult = false;
         loadData();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
         for (HashMap<String, String> row : allJobs) {
             for(String column : row.keySet()){
                 String jobValue= row.get(column);
                 if(jobValue.toLowerCase().contains(searchTerm.toLowerCase())) {
-                    System.out.println(row);
+                    jobs.add(row);
                     foundResult = true;
                     break;
                 }
             }
 
         }
-        if (!foundResult) {
-            System.out.println("Sorry, no jobs found");
-        }
+        return jobs;
     }
 }
